@@ -46,6 +46,8 @@ class MainWindow(QMainWindow):
         self.ui.firstTask.clicked.connect(lambda x: (self.setCurrentMode(0)))
         self.ui.secondTask.clicked.connect(lambda x: (self.setCurrentMode(1)))
         
+        self.setCurrentMode(0)
+        
     @Slot()
     def setCurrentMode(self, newMode: str):
         self.mode = newMode
