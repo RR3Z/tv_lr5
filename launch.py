@@ -298,6 +298,19 @@ class MainWindow(QMainWindow):
                 "xtick.major.size" : 5, "ytick.major.size" : 5,}
             with plt.rc_context(rc):
                 fig, ax = plt.subplots()
+
+                dashColor = "black"
+                dashAlpha = 0.5
+                dashWidth = 1
+                for point in zip(x, y):
+                    # print(f"({point[0]};{point[1]})")
+                    xx = [0, point[0]]
+                    yy = [point[1]] * 2
+                    ax.plot(xx, yy, '--', color=dashColor, alpha=dashAlpha, linewidth=dashWidth)
+                    xx = [point[0]] * 2
+                    yy = [0, point[1]]
+                    ax.plot(xx, yy, '--', color=dashColor, alpha=dashAlpha, linewidth=dashWidth)
+
                 ax.plot(x, y)
 
                 ax.spines['left'].set_position('zero')
@@ -316,13 +329,13 @@ class MainWindow(QMainWindow):
             plt.xlabel("Число")
             plt.ylabel("Частота")
             
-            ax.set_xticks(x, x, minor=True)
+            ax.set_xticks(x, x, minor=False)
             
             xax = ax.get_xaxis()
             xax.set_tick_params(which='minor', pad=15)
 
             
-            ax.grid(visible=True, which="major")
+            # ax.grid(visible=True, which="major")
             
             plt.show()
             
@@ -374,6 +387,44 @@ class MainWindow(QMainWindow):
             empiricalFunction['end'].append(x[i+1])
             empiricalFunction['y'].append(sum(relativefrequencyRow['numerators'][:i+1])/relativefrequencyRow['denominator'])
         #Построение разорванного графика.
+
+        print(empiricalFunction['start'])
+        print(empiricalFunction['end'])
+        print(empiricalFunction['y'])
+
+        
+
+        # fig, ax = plt.subplots()
+        
+        color = "black"
+        
+        rc = {"xtick.direction" : "inout", "ytick.direction" : "inout",
+                "xtick.major.size" : 5, "ytick.major.size" : 5,}
+        with plt.rc_context(rc):
+            fig, ax = plt.subplots()
+            # Plotting
+            for i in range(len(empiricalFunction["y"])):
+                xx = [empiricalFunction['start'][i], empiricalFunction['end'][i]]
+                yy = [empiricalFunction['y'][i]] * len(xx)
+                ax.plot(xx, yy, color=color)
+                ax.plot(xx[0], yy[0], marker="<", color=color)
+
+            ax.spines['left'].set_position('zero')
+            ax.spines['right'].set_visible(False)
+            ax.spines['bottom'].set_position('zero')
+            ax.spines['top'].set_visible(False)
+            ax.xaxis.set_ticks_position('bottom')
+            ax.yaxis.set_ticks_position('left')
+
+            # make arrows
+            ax.plot((1), (0), ls="", marker=">", ms=10, color="k",
+                    transform=ax.get_yaxis_transform(), clip_on=False)
+            ax.plot((0), (1), ls="", marker="^", ms=10, color="k",
+                    transform=ax.get_xaxis_transform(), clip_on=False)
+        
+        
+        plt.show()
+
 
         self.plotWidget = pg.plot(title = 'asdasd', background = 'w', foreground = 'k')
        
