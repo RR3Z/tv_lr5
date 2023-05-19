@@ -10,6 +10,10 @@ from workingWithRowData import getVariationRow, getFrequencyRow, RowType, getX, 
 import numpy as np
 import pyqtgraph as pg
 
+from mpl_toolkits.axisartist.axislines import SubplotZero
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -275,18 +279,53 @@ class MainWindow(QMainWindow):
         #         fillLevel=0,
         #         fillOutline=True)
         
-        pg.plot(x, 
-                y, 
-                title='Плигон частот', 
-                pen=penLines, 
-                background='w', 
-                foreground='k', 
-                antialias=True,
-                fillLevel=0,
-                fillOutline=True,
-                labels={'left': 'Частота', 'bottom': 'Число'})
+        if False:
         
-        
+            pg.plot(x, 
+                    y, 
+                    title='Плигон частот', 
+                    pen=penLines, 
+                    background='w', 
+                    foreground='k', 
+                    antialias=True,
+                    fillLevel=0,
+                    fillOutline=True,
+                    labels={'left': 'Частота', 'bottom': 'Число'})
+        else:
+            x = frequencyRow['numbers']
+            y = frequencyRow['frequencies']
+            rc = {"xtick.direction" : "inout", "ytick.direction" : "inout",
+                "xtick.major.size" : 5, "ytick.major.size" : 5,}
+            with plt.rc_context(rc):
+                fig, ax = plt.subplots()
+                ax.plot(x, y)
+
+                ax.spines['left'].set_position('zero')
+                ax.spines['right'].set_visible(False)
+                ax.spines['bottom'].set_position('zero')
+                ax.spines['top'].set_visible(False)
+                ax.xaxis.set_ticks_position('bottom')
+                ax.yaxis.set_ticks_position('left')
+
+                # make arrows
+                ax.plot((1), (0), ls="", marker=">", ms=10, color="k",
+                        transform=ax.get_yaxis_transform(), clip_on=False)
+                ax.plot((0), (1), ls="", marker="^", ms=10, color="k",
+                        transform=ax.get_xaxis_transform(), clip_on=False)
+            
+            plt.xlabel("Число")
+            plt.ylabel("Частота")
+            
+            ax.set_xticks(x, x, minor=True)
+            
+            xax = ax.get_xaxis()
+            xax.set_tick_params(which='minor', pad=15)
+
+            
+            ax.grid(visible=True, which="major")
+            
+            plt.show()
+            
         
         #Вывод сообщения в консоль
         print("График частотного полигональной линии успешно построен")
@@ -364,6 +403,33 @@ class MainWindow(QMainWindow):
  
         
 if __name__ == "__main__":
+    
+    if False:
+        from mpl_toolkits.axisartist.axislines import SubplotZero
+        import matplotlib.pyplot as plt
+        import numpy as np
+
+
+        fig = plt.figure()
+        ax = SubplotZero(fig, 111)
+        fig.add_subplot(ax)
+
+        for direction in ["xzero", "yzero"]:
+            # adds arrows at the ends of each axis
+            ax.axis[direction].set_axisline_style("-|>")
+
+            # adds X and Y-axis from the origin
+            ax.axis[direction].set_visible(True)
+
+        for direction in ["left", "right", "bottom", "top"]:
+            # hides borders
+            ax.axis[direction].set_visible(False)
+
+        x = np.linspace(-0.5, 1., 100)
+        ax.plot(x, np.sin(x*np.pi))
+
+        plt.show()
+        quit()
     app = QApplication()
     window = MainWindow() 
     window.show()
