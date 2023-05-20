@@ -14,6 +14,8 @@ from mpl_toolkits.axisartist.axislines import SubplotZero
 import matplotlib.pyplot as plt
 import numpy as np
 
+import graphingFunctions as graph
+
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -257,110 +259,14 @@ class MainWindow(QMainWindow):
         #Получение данных из таблицы
         frequencyRow = getFrequencyRow(self.currentArray, RowType.FREQUENCY)
         
-        #Построение графика в отдельном окне
         #Получение данных для графика
         x = frequencyRow['numbers']
         y = frequencyRow['frequencies']
-        #Построение графика. Не выделять точки построения, задать цвет линии и точек
-        penLines = pg.mkPen(color=(0, 0, 0), width=2)
         
-        #График с выколотыми точками
-        # pg.plot(x, 
-        #         y, 
-        #         title='Плигон частот', 
-        #         pen=penLines, 
-        #         symbol='o', 
-        #         symbolPen=penDots,    #Цвет обводки точек
-        #         symbolBrush='w',      #Цвет заливки точек
-        #         symbolSize=10, 
-        #         background='w', 
-        #         foreground='k', 
-        #         antialias=True,
-        #         fillLevel=0,
-        #         fillOutline=True)
-        
-        if False:
-        
-            pg.plot(x, 
-                    y, 
-                    title='Плигон частот', 
-                    pen=penLines, 
-                    background='w', 
-                    foreground='k', 
-                    antialias=True,
-                    fillLevel=0,
-                    fillOutline=True,
-                    labels={'left': 'Частота', 'bottom': 'Число'})
-        else:
-            x = frequencyRow['numbers']
-            y = frequencyRow['frequencies']
-            rc = {"xtick.direction" : "inout", "ytick.direction" : "inout",
-                "xtick.major.size" : 5, "ytick.major.size" : 5,}
-            with plt.rc_context(rc):
-                fig, ax = plt.subplots()
+        #Построение графика
+        graph.drawPolygonGraph(x, y, xLabel="Число", yLabel="Частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
 
-                horizontalLines = {}
-                for point in zip(x, y):
-                    horizontalLines[point[1]] = []
-                for point in zip(x, y):
-                    horizontalLines[point[1]].append(point[0])
-                  
-                vertiaclLines = {}
-                for point in zip(x, y):
-                    vertiaclLines[point[0]] = []
-                for point in zip(x, y):
-                    vertiaclLines[point[0]].append(point[1])
-                
-                dashColor = "black"
-                dashAlpha = 0.5
-                dashWidth = 1
-                
-                for lineY in horizontalLines:
-                    horizontalLines[lineY].sort()
-                    biggestX = horizontalLines[lineY][-1]
-                    xx = [0, biggestX]
-                    yy = [lineY] * 2
-                    ax.plot(xx, yy, '--', color=dashColor, alpha=dashAlpha, linewidth=dashWidth)
-                
-                for lineX in vertiaclLines:
-                    vertiaclLines[lineX].sort()
-                    biggestY = vertiaclLines[lineX][-1]
-                    xx = [lineX] * 2
-                    yy = [0, biggestY]
-                    ax.plot(xx, yy, '--', color=dashColor, alpha=dashAlpha, linewidth=dashWidth)
-                
-
-                ax.plot(x, y)
-
-                ax.spines['left'].set_position('zero')
-                ax.spines['right'].set_visible(False)
-                ax.spines['bottom'].set_position('zero')
-                ax.spines['top'].set_visible(False)
-                ax.xaxis.set_ticks_position('bottom')
-                ax.yaxis.set_ticks_position('left')
-
-                # make arrows
-                ax.plot((1), (0), ls="", marker=">", ms=10, color="k",
-                        transform=ax.get_yaxis_transform(), clip_on=False)
-                ax.plot((0), (1), ls="", marker="^", ms=10, color="k",
-                        transform=ax.get_xaxis_transform(), clip_on=False)
-            
-            plt.xlabel("Число")
-            plt.ylabel("Частота")
-            
-            
-            ax.set_xticks(x, x, minor=False)
-            ax.set_yticks(y, y, minor=False)
-            
-            # xax = ax.get_xaxis()
-            # xax.set_tick_params(which='minor', pad=15)
-
-            
-            # ax.grid(visible=True, which="major")
-            
-            plt.show()
-            
-        
+                          
         #Вывод сообщения в консоль
         print("График частотного полигональной линии успешно построен")
         
@@ -371,18 +277,12 @@ class MainWindow(QMainWindow):
         #Получение данных из таблицы
         relativeFrequencyRow = getFrequencyRow(self.currentArray, RowType.RELATIVE_FREQUENCY)
         
-        pg.plot(relativeFrequencyRow['numbers'],
-                relativeFrequencyRow['numerators']/relativeFrequencyRow['denominator'],
-                title='Плигон относительных частот', 
-                pen=pg.mkPen(color=(0, 0, 0), width=2), 
-                background='w', 
-                foreground='#000000', 
-                antialias=True,
-                fillLevel=0,
-                fillOutline=True,
-                labels={'left': '<span style="color: #000">Частота</span>', 'bottom': '<span style="color: #000">Число</span>'},
-                color = '#000000')
+        #Рассчёт данных для графика
+        x = relativeFrequencyRow['numbers']
+        y = relativeFrequencyRow['numerators']/relativeFrequencyRow['denominator']
         
+        #Построение графика
+        graph.drawPolygonGraph(x, y, xLabel="Число", yLabel="Относительная частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
         
         #Вывод сообщения в консоль
         print("График частотной полигональной линии успешно построен")
@@ -407,52 +307,10 @@ class MainWindow(QMainWindow):
             empiricalFunction['start'].append(x[i]) 
             empiricalFunction['end'].append(x[i+1])
             empiricalFunction['y'].append(sum(relativefrequencyRow['numerators'][:i+1])/relativefrequencyRow['denominator'])
-        #Построение разорванного графика.
-
-        print(empiricalFunction['start'])
-        print(empiricalFunction['end'])
-        print(empiricalFunction['y'])
-
-        
-
-        # fig, ax = plt.subplots()
-        
-        color = "black"
-        
-        rc = {"xtick.direction" : "inout", "ytick.direction" : "inout",
-                "xtick.major.size" : 5, "ytick.major.size" : 5,}
-        with plt.rc_context(rc):
-            fig, ax = plt.subplots()
-            # Plotting
-            for i in range(len(empiricalFunction["y"])):
-                xx = [empiricalFunction['start'][i], empiricalFunction['end'][i]]
-                yy = [empiricalFunction['y'][i]] * len(xx)
-                ax.plot(xx, yy, color=color)
-                ax.plot(xx[0], yy[0], marker="<", color=color)
-
-            ax.spines['left'].set_position('zero')
-            ax.spines['right'].set_visible(False)
-            ax.spines['bottom'].set_position('zero')
-            ax.spines['top'].set_visible(False)
-            ax.xaxis.set_ticks_position('bottom')
-            ax.yaxis.set_ticks_position('left')
-
-            # make arrows
-            ax.plot((1), (0), ls="", marker=">", ms=10, color="k",
-                    transform=ax.get_yaxis_transform(), clip_on=False)
-            ax.plot((0), (1), ls="", marker="^", ms=10, color="k",
-                    transform=ax.get_xaxis_transform(), clip_on=False)
-        
-        
-        plt.show()
-
-
-        self.plotWidget = pg.plot(title = 'asdasd', background = 'w', foreground = 'k')
-       
-        for i in range(len(empiricalFunction['y'])):
-            self.plotWidget.plot([empiricalFunction['start'][i]],[empiricalFunction['y'][i]],pen=pg.mkPen(color=(0, 0, 0), width=2), symbol='o', symbolPen=pg.mkPen(color=(0, 0, 0), width=2), symbolBrush='w', symbolSize=10, antialias=True)
-            self.plotWidget.plot([empiricalFunction['start'][i], empiricalFunction['end'][i]], [empiricalFunction['y'][i], empiricalFunction['y'][i]], pen=pg.mkPen(color=(0, 0, 0), width=2))
-        
+            
+        #Построение разорванного графика
+        graph.drawEmpiricalGraph(empiricalFunction, xLabel="X axis", yLabel="Y axis", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
+             
         
         
     @Slot()
