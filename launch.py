@@ -348,10 +348,12 @@ class MainWindow(QMainWindow):
             plt.xlabel("Число")
             plt.ylabel("Частота")
             
-            ax.set_xticks(x, x, minor=False)
             
-            xax = ax.get_xaxis()
-            xax.set_tick_params(which='minor', pad=15)
+            ax.set_xticks(x, x, minor=False)
+            ax.set_yticks(y, y, minor=False)
+            
+            # xax = ax.get_xaxis()
+            # xax.set_tick_params(which='minor', pad=15)
 
             
             # ax.grid(visible=True, which="major")
