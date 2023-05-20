@@ -299,17 +299,36 @@ class MainWindow(QMainWindow):
             with plt.rc_context(rc):
                 fig, ax = plt.subplots()
 
+                horizontalLines = {}
+                for point in zip(x, y):
+                    horizontalLines[point[1]] = []
+                for point in zip(x, y):
+                    horizontalLines[point[1]].append(point[0])
+                  
+                vertiaclLines = {}
+                for point in zip(x, y):
+                    vertiaclLines[point[0]] = []
+                for point in zip(x, y):
+                    vertiaclLines[point[0]].append(point[1])
+                
                 dashColor = "black"
                 dashAlpha = 0.5
                 dashWidth = 1
-                for point in zip(x, y):
-                    # print(f"({point[0]};{point[1]})")
-                    xx = [0, point[0]]
-                    yy = [point[1]] * 2
+                
+                for lineY in horizontalLines:
+                    horizontalLines[lineY].sort()
+                    biggestX = horizontalLines[lineY][-1]
+                    xx = [0, biggestX]
+                    yy = [lineY] * 2
                     ax.plot(xx, yy, '--', color=dashColor, alpha=dashAlpha, linewidth=dashWidth)
-                    xx = [point[0]] * 2
-                    yy = [0, point[1]]
+                
+                for lineX in vertiaclLines:
+                    vertiaclLines[lineX].sort()
+                    biggestY = vertiaclLines[lineX][-1]
+                    xx = [lineX] * 2
+                    yy = [0, biggestY]
                     ax.plot(xx, yy, '--', color=dashColor, alpha=dashAlpha, linewidth=dashWidth)
+                
 
                 ax.plot(x, y)
 
