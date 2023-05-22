@@ -12,7 +12,7 @@ def mathTex_to_QPixmap(mathTex, fs):
     # mpl.rcParams['text.usetex'] = True
     # mpl.rcParams['text.latex.preamble'] = r''
     # mpl.rcParams['text.usetex'] = False
-    mpl.rcParams.update(mpl.rcParamsDefault)
+    # mpl.rcParams.update(mpl.rcParamsDefault)
 
 
     #---- set up a mpl figure instance ----
@@ -92,4 +92,6 @@ def mathTex_to_QPixmap_system(mathTex, fs):
                                                   QtGui.QImage.Format_ARGB32))
     qpixmap = QtGui.QPixmap(qimage)
 
+    mpl.rcParams['text.latex.preamble'] = r''
+    mpl.rcParams['text.usetex'] = False
     return qpixmap
