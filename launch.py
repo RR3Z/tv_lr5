@@ -29,7 +29,7 @@ class MainWindow(QMainWindow):
         self.minFrequency = 5
         
         #Включить/выключить динамическую генерацию эмпмрических функций
-        self.generateDynamicEmpirical = True
+        self.generateDynamicEmpirical = False
         
         #Как записывается формула: r"$Твоя формула$"
         qpixmap = mathTex_to_QPixmap(r"$P_{n} (m) = C^{m}_{n}*p^{m}*q^{n-m} $", 20)
