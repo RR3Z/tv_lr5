@@ -25,7 +25,12 @@ class MainWindow(QMainWindow):
         self.mode = 0
         self.currentArray = []
         self.currentIntervals = []
+        #Минимальный размер ряда
         self.minFrequency = 5
+        
+        #Включить/выключить динамическую генерацию эмпмрических функций
+        self.generateDynamicEmpirical = True
+        
         #Как записывается формула: r"$Твоя формула$"
         qpixmap = mathTex_to_QPixmap(r"$P_{n} (m) = C^{m}_{n}*p^{m}*q^{n-m} $", 20)
         #Формула среднего выборочного
@@ -153,8 +158,9 @@ class MainWindow(QMainWindow):
             self.ui.lineS.setText(str(round(getS(self.currentArray),2)))  
             #Посчитать эмпирическую функцию
             self.empiricalFunction = self.generateEmpiricalFunction()
-            #вывести эмпирическую функцию
-            self.setEmpirical(self.ui.empiricalLatex_1, self.empiricalFunction)
+            #вывести эмпирическую функцию если включена настройка
+            if self.generateDynamicEmpirical:
+                self.setEmpirical(self.ui.empiricalLatex_1, self.empiricalFunction)
                     
 
     @Slot()    
@@ -212,11 +218,13 @@ class MainWindow(QMainWindow):
             #Посчитать эмпирическую функцию
             self.empiricalIntervalFunction = self.empiricalIntervalFunction2()
             #Вывести эмпирическую функцию
-            self.setEmpirical(self.ui.empiricalIntervalLatex_2, self.empiricalIntervalFunction)
+            if self.generateDynamicEmpirical:
+                self.setEmpirical(self.ui.empiricalIntervalLatex_2, self.empiricalIntervalFunction)
             #Посчитать эмипирическую функцию для группированного ряда
             self.empiricalGroupFunction = self.empiricalGroupFunction2()
             #Вывести эмпирическую функцию для группированного ряда
-            self.setEmpirical(self.ui.empiricalGroupLatex_2, self.empiricalGroupFunction)
+            if self.generateDynamicEmpirical:
+                self.setEmpirical(self.ui.empiricalGroupLatex_2, self.empiricalGroupFunction)
             
             
     @Slot()    
@@ -259,11 +267,13 @@ class MainWindow(QMainWindow):
             #Посчитать эмпирическую функцию
             self.empiricalIntervalFunction = self.empiricalIntervalFunction2()
             #Вывести эмпирическую функцию
-            self.setEmpirical(self.ui.empiricalIntervalLatex_3, self.empiricalIntervalFunction)
+            if self.generateDynamicEmpirical:
+                self.setEmpirical(self.ui.empiricalIntervalLatex_3, self.empiricalIntervalFunction)
             #Посчитать эмипирическую функцию для группированного ряда
             self.empiricalGroupFunction = self.empiricalGroupFunction2()
             #Вывести эмпирическую функцию для группированного ряда
-            self.setEmpirical(self.ui.empiricalGroupLatex_3, self.empiricalGroupFunction)
+            if self.generateDynamicEmpirical:
+                self.setEmpirical(self.ui.empiricalGroupLatex_3, self.empiricalGroupFunction)
             
     
     @Slot()
