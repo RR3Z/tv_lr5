@@ -5,7 +5,7 @@ from mainwindow import Ui_MainWindow
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox, QListWidgetItem, QFileDialog, QTableWidgetItem
 from PySide6.QtCore import Slot, Signal, Qt
 from PySide6.QtGui import QIcon
-from qpixmapCreator import mathTex_to_QPixmap
+from qpixmapCreator import mathTex_to_QPixmap, mathTex_to_QPixmap_system
 from workingWithRowData import getVariationRow, getFrequencyRow, RowType, getX, getD, getSigma, getS, split
 import numpy as np
 import pyqtgraph as pg
@@ -31,15 +31,25 @@ class MainWindow(QMainWindow):
         #Формула среднего выборочного
         x = mathTex_to_QPixmap(r"$\overline{X_{в}} = \frac{1}{n} \sum_{i=1}^{n} x_{i} * m_{i}$", 20)
         self.ui.formulaX.setPixmap(x)
+        self.ui.formulaX_2.setPixmap(x)
+        self.ui.formulaX_3.setPixmap(x)
         #Формула выборочной дисперсии
         d = mathTex_to_QPixmap(r"$D_{в} = X^{2} - (\overline{X_{в}})^{2}$", 20)
         self.ui.formulaD.setPixmap(d)
+        self.ui.formulaD_2.setPixmap(d)
+        self.ui.formulaD_3.setPixmap(d)
         #Формула выборочного среднего квадратического отклонения
         sigma = mathTex_to_QPixmap(r"$\sigma_{в} = \sqrt{D_{в}}$", 20)
         self.ui.formulaSigma.setPixmap(sigma)
+        self.ui.formulaSigma_2.setPixmap(sigma)
+        self.ui.formulaSigma_3.setPixmap(sigma)
+        
         #Формула выборочного среднего квадратического отклонения
-        s = mathTex_to_QPixmap(r"$S_{в} = \sqrt{D_{в}}$", 20)
-        self.ui.formulaS.setText("S = что это такое?")
+        s = mathTex_to_QPixmap(r"$S_{в} = \frac{1}{n-1} \sum_{i=1}^{n} x_{i} * m_{i}}$", 20)
+        self.ui.formulaS.setPixmap(s)
+        self.ui.formulaS_2.setPixmap(s)
+        self.ui.formulaS_3.setPixmap(s)
+        
         
         #поменять высоту ячеек в таблице
         self.ui.rowsTable.verticalHeader().setDefaultSectionSize(40)
@@ -71,7 +81,20 @@ class MainWindow(QMainWindow):
         self.ui.frequencyPolygonBtn_3.clicked.connect(self.frequencyPolygon2)
         self.ui.relativeFrequencyPolygonBtn_3.clicked.connect(self.relativeFrequencyPolygon2)
         
+        #------------------------------------------------------
+        #Тест вставки эмпирической функции
+        testEmpirical = {
+            'start': [4.25, 4.45, 4.55, 4.65, 4.85], 
+            'end': [4.45, 4.55, 4.65, 4.85, 4.949999999999999], 
+            'y': [0.27, 0.49, 0.72, 0.82, 1]}
         
+        #Создать строчку Latex из библиотеки matplotLib, в которой будет система эмпирическоф функции по шаблону: F(x) = {[start[i], end[i]]: y[i]}
+        str = r"$f(x)= \begin{cases} a\times x^{1.5}2 + c,& \text{if } -1 \leq x \leq 1\\  0, & \text{алё блять где русский}  \end{cases}$"
+        # str = r"$\left( \begin{array}{ll} 2 & 3 \\ 4 & 5 \end{array} \right)$"
+        pixmap = mathTex_to_QPixmap_system(str, 20)
+        self.ui.empiricalLatex_1.setPixmap(pixmap)
+        
+        #------------------------------------------------------
         
         self.setCurrentMode(0)
         
@@ -122,7 +145,7 @@ class MainWindow(QMainWindow):
             self.ui.lineSigma.setText(str(round(getSigma(self.currentArray),2)))
             #Вывести результат S
             self.ui.lineS.setText(str(round(getS(self.currentArray),2)))           
-    
+
     @Slot()    
     def openFileBtnClicked_2(self):
         #Выбор файла с помощью диалогового окна QfileDialog
