@@ -2,7 +2,7 @@ import math
 import sys
 import re
 from mainwindow import Ui_MainWindow
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox, QListWidgetItem, QFileDialog, QTableWidgetItem
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox, QListWidgetItem, QFileDialog, QTableWidgetItem, QTableWidget, QHeaderView
 from PySide6.QtCore import Slot, Signal, Qt
 from PySide6.QtGui import QIcon
 from qpixmapCreator import mathTex_to_QPixmap, mathTex_to_QPixmap_system
@@ -310,6 +310,9 @@ class MainWindow(QMainWindow):
             newItem = QTableWidgetItem("")
             newItem.setData(Qt.DecorationRole, naturalFraction)
             self.ui.rowsTable.setItem(2, i, newItem)
+            
+        self.ui.rowsTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+            
         print("Статистический ряд относительных частот успешно выведен")
     
     @Slot()
@@ -358,7 +361,7 @@ class MainWindow(QMainWindow):
         }
         for i in range(len(x)-1):
             empiricalFunction['start'].append(round(x[i], 2)) 
-            empiricalFunction['end'].append(round(x[i+1]),2)
+            empiricalFunction['end'].append(round(x[i+1],2))
             empiricalFunction['y'].append(round(sum(relativefrequencyRow['numerators'][:i+1])/relativefrequencyRow['denominator'],2))
         
         allX = [value for value in empiricalFunction["start"]] + [value for value in empiricalFunction["end"]] 
@@ -373,7 +376,7 @@ class MainWindow(QMainWindow):
         
     
     @Slot()
-    def showIntervalRow(self, table):
+    def showIntervalRow(self, table: QTableWidget):
         #Очистка таблицы
         table.clearContents()
         
@@ -398,8 +401,9 @@ class MainWindow(QMainWindow):
             newItem = QTableWidgetItem("")
             newItem.setData(Qt.DecorationRole, naturalFraction)
             table.setItem(2, i, newItem)
-            
-
+        
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        
         print("Интервальный ряд частот и относительных частот успешно построен")
         
     @Slot()
@@ -442,7 +446,9 @@ class MainWindow(QMainWindow):
             newItem = QTableWidgetItem("")
             newItem.setData(Qt.DecorationRole, naturalFraction)
             table.setItem(2, i, newItem)
-            
+           
+        table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        
         print("Группированный ряд частот и относительных частот успешно построен")
             
     @Slot()
@@ -590,6 +596,7 @@ class MainWindow(QMainWindow):
                 latexStr += r" \\ "
         latexStr += r" \end{cases}$"
         
+       
         pixmap = mathTex_to_QPixmap_system(latexStr, 16)
         widget.setPixmap(pixmap)
         
