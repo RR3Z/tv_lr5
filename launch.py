@@ -2,7 +2,7 @@ import math
 import sys
 import re
 from mainwindow import Ui_MainWindow
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox, QListWidgetItem, QFileDialog, QTableWidgetItem, QTableWidget, QHeaderView
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QMessageBox, QListWidgetItem, QFileDialog, QTableWidgetItem, QTableWidget, QHeaderView, QSizePolicy
 from PySide6.QtCore import Slot, Signal, Qt
 from PySide6.QtGui import QIcon
 from qpixmapCreator import mathTex_to_QPixmap, mathTex_to_QPixmap_system
@@ -597,8 +597,13 @@ class MainWindow(QMainWindow):
         latexStr += r" \end{cases}$"
         
        
-        pixmap = mathTex_to_QPixmap_system(latexStr, 16)
-        widget.setPixmap(pixmap)
+        pixmap = mathTex_to_QPixmap_system(latexStr, 50)             
+
+        #Без этого после сворачивания окна qPixMap поломает пропорции окна, а так просто картинку обрежет
+        widget.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
+        
+        #Ставим qPixMap'у размер его label'а
+        widget.setPixmap(pixmap.scaled(widget.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)) 
         
         
         
