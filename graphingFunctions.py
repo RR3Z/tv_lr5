@@ -2,6 +2,9 @@ from mpl_toolkits.axisartist.axislines import SubplotZero
 import matplotlib.pyplot as plt
 import numpy as np
 
+def roundValue(value):
+        return round(value, 2)
+
 def removeBordersAndAddArrows(ax):    
     ax.spines['left'].set_position('zero')
     ax.spines['right'].set_visible(False)

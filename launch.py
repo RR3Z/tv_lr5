@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import graphingFunctions as graph
+from graphingFunctions import roundValue
 
 
 class MainWindow(QMainWindow):
@@ -149,13 +150,13 @@ class MainWindow(QMainWindow):
             #Вывести статистический ряд частот
             self.showFrequencyRows()
             #Вывести D выборочное
-            self.ui.lineD.setText(str(round(getD(self.currentArray),2)))
+            self.ui.lineD.setText(str(roundValue(getD(self.currentArray))))
             #Вывести x выборочное
-            self.ui.lineX.setText(str(round(getX(self.currentArray),2)))
+            self.ui.lineX.setText(str(roundValue(getX(self.currentArray))))
             #Вывести сигма выборочное
-            self.ui.lineSigma.setText(str(round(getSigma(self.currentArray),2)))
+            self.ui.lineSigma.setText(str(roundValue(getSigma(self.currentArray))))
             #Вывести результат S
-            self.ui.lineS.setText(str(round(getS(self.currentArray),2)))  
+            self.ui.lineS.setText(str(roundValue(getS(self.currentArray))))  
             #Посчитать эмпирическую функцию
             self.empiricalFunction = self.generateEmpiricalFunction()
             #вывести эмпирическую функцию если включена настройка
@@ -208,13 +209,13 @@ class MainWindow(QMainWindow):
             array = np.repeat(self.groupRow['numbers'], self.groupRow['numerators'])
             
             #Вывести D выборочное
-            self.ui.lineD_2.setText(str(round(getD(array),2)))
+            self.ui.lineD_2.setText(str(roundValue(getD(array))))
             #Вывести x выборочное
-            self.ui.lineX_2.setText(str(round(getX(array), 2)))
+            self.ui.lineX_2.setText(str(roundValue(getX(array))))
             #Вывести сигма выборочной
-            self.ui.lineSigma_2.setText(str(round(getSigma(array), 2)))
+            self.ui.lineSigma_2.setText(str(roundValue(getSigma(array))))
             #Вывести результат S
-            self.ui.lineS_2.setText(str(round(getS(array),2)))
+            self.ui.lineS_2.setText(str(roundValue(getS(array))))
             #Посчитать эмпирическую функцию
             self.empiricalIntervalFunction = self.empiricalIntervalFunction2()
             #Вывести эмпирическую функцию
@@ -257,13 +258,13 @@ class MainWindow(QMainWindow):
             array = np.repeat(self.groupRow['numbers'], self.groupRow['numerators'])
             
             #Вывести D выборочное
-            self.ui.lineD_3.setText(str(round(getD(array),2)))
+            self.ui.lineD_3.setText(str(roundValue(getD(array))))
             #Вывести x выборочное
-            self.ui.lineX_3.setText(str(round(getX(array), 2)))
+            self.ui.lineX_3.setText(str(roundValue(getX(array))))
             #Вывести сигма выборочной
-            self.ui.lineSigma_3.setText(str(round(getSigma(array), 2)))
+            self.ui.lineSigma_3.setText(str(roundValue(getSigma(array))))
             #Вывести результат S
-            self.ui.lineS_3.setText(str(round(getS(array),2)))
+            self.ui.lineS_3.setText(str(roundValue(getS(array))))
             #Посчитать эмпирическую функцию
             self.empiricalIntervalFunction = self.empiricalIntervalFunction2()
             #Вывести эмпирическую функцию
@@ -360,15 +361,15 @@ class MainWindow(QMainWindow):
             'y': []
         }
         for i in range(len(x)-1):
-            empiricalFunction['start'].append(round(x[i], 2)) 
-            empiricalFunction['end'].append(round(x[i+1],2))
-            empiricalFunction['y'].append(round(sum(relativefrequencyRow['numerators'][:i+1])/relativefrequencyRow['denominator'],2))
+            empiricalFunction['start'].append(roundValue(x[i])) 
+            empiricalFunction['end'].append(roundValue(x[i+1]))
+            empiricalFunction['y'].append(roundValue(sum(relativefrequencyRow['numerators'][:i+1])/relativefrequencyRow['denominator']))
         
         allX = [value for value in empiricalFunction["start"]] + [value for value in empiricalFunction["end"]] 
         xMinDiff = graph.minDiffInList(allX)
         lastx = empiricalFunction['end'][-1] 
-        empiricalFunction['start'].append(round(lastx,2))
-        empiricalFunction['end'].append(round(lastx+xMinDiff,2)) 
+        empiricalFunction['start'].append(roundValue(lastx))
+        empiricalFunction['end'].append(roundValue(lastx+xMinDiff)) 
         empiricalFunction['y'].append(1)
         
         return empiricalFunction
@@ -461,9 +462,9 @@ class MainWindow(QMainWindow):
         }
         
         for i in range(len(self.intervalRow['start'])):
-            frequencyHistogram['start'].append(self.intervalRow['start'][i])
-            frequencyHistogram['end'].append(self.intervalRow['end'][i])
-            frequencyHistogram['frequency'].append(self.intervalRow['frequency'][i])
+            frequencyHistogram['start'].append(roundValue(self.intervalRow['start'][i]))
+            frequencyHistogram['end'].append(roundValue(self.intervalRow['end'][i]))
+            frequencyHistogram['frequency'].append(roundValue(self.intervalRow['frequency'][i]))
         
         
         graph.drawHistogramGraph(frequencyHistogram, xLabel="x", yLabel="Относительная частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
@@ -481,9 +482,9 @@ class MainWindow(QMainWindow):
         }
         
         for i in range(len(self.intervalRow['start'])):
-            relativeIntervalRow['start'].append(self.intervalRow['start'][i])
-            relativeIntervalRow['end'].append(self.intervalRow['end'][i])
-            relativeIntervalRow['relativeFrequency'].append(self.intervalRow['frequency'][i] / sum(self.intervalRow['frequency']))
+            relativeIntervalRow['start'].append(roundValue(self.intervalRow['start'][i]))
+            relativeIntervalRow['end'].append(roundValue(self.intervalRow['end'][i]))
+            relativeIntervalRow['relativeFrequency'].append(roundValue(self.intervalRow['frequency'][i] / sum(self.intervalRow['frequency'])))
         
         graph.drawHistogramGraph(relativeIntervalRow, xLabel="x", yLabel="Относительная частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
         
@@ -501,16 +502,16 @@ class MainWindow(QMainWindow):
         }
         
         for i in range(1, len(self.intervalRow['start'])):
-            intervalEmpirical['start'].append(round(self.intervalRow['start'][i],2))
-            intervalEmpirical['end'].append(round(self.intervalRow['end'][i],2))
-            intervalEmpirical['y'].append(round(sum(self.intervalRow['frequency'][:i]) / sum(self.intervalRow['frequency']),2))
+            intervalEmpirical['start'].append(roundValue(self.intervalRow['start'][i]))
+            intervalEmpirical['end'].append(roundValue(self.intervalRow['end'][i]))
+            intervalEmpirical['y'].append(roundValue(sum(self.intervalRow['frequency'][:i]) / sum(self.intervalRow['frequency'])))
         
         # Добавить последнюю точку равную 1
         allX = [value for value in intervalEmpirical["start"]] + [value for value in intervalEmpirical["end"]] 
         xMinDiff = graph.minDiffInList(allX)
         lastx = intervalEmpirical['end'][-1] 
-        intervalEmpirical['start'].append(round(lastx,2))
-        intervalEmpirical['end'].append(round(lastx+xMinDiff,2)) 
+        intervalEmpirical['start'].append(roundValue(lastx))
+        intervalEmpirical['end'].append(roundValue(lastx+xMinDiff)) 
         intervalEmpirical['y'].append(1)
         
 
@@ -530,16 +531,16 @@ class MainWindow(QMainWindow):
             'y': []
         }
         for i in range(len(x)-1):
-            groupEmpirical['start'].append(round(x[i],2)) 
-            groupEmpirical['end'].append(round(x[i+1],2))
-            groupEmpirical['y'].append(round(sum(self.groupRow['numerators'][:i+1])/self.groupRow['denominator'],2))
+            groupEmpirical['start'].append(roundValue(x[i])) 
+            groupEmpirical['end'].append(roundValue(x[i+1]))
+            groupEmpirical['y'].append(roundValue(sum(self.groupRow['numerators'][:i+1])/self.groupRow['denominator']))
         
         # Добавить последнюю точку равную 1
         allX = [value for value in groupEmpirical["start"]] + [value for value in groupEmpirical["end"]] 
         xMinDiff = graph.minDiffInList(allX)
         lastx = groupEmpirical['end'][-1] 
-        groupEmpirical['start'].append(round(lastx,2))
-        groupEmpirical['end'].append(round(lastx+xMinDiff,2)) 
+        groupEmpirical['start'].append(roundValue(lastx))
+        groupEmpirical['end'].append(roundValue(lastx+xMinDiff)) 
         groupEmpirical['y'].append(1)
             
         print("groupEmpirical: ", groupEmpirical)
@@ -604,7 +605,6 @@ class MainWindow(QMainWindow):
         
         #Ставим qPixMap'у размер его label'а
         widget.setPixmap(pixmap.scaled(widget.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation)) 
-        
         
         
 if __name__ == "__main__":
