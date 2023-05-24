@@ -231,7 +231,7 @@ QHeaderView::section {
     <item row="0" column="1">
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_1">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -583,6 +583,8 @@ QHeaderView::section {
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Arial','sans-serif'; font-size:14px; font-weight:700; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
@@ -783,7 +785,7 @@ hr { height: 1px; border-width: 0; }
           <item>
            <widget class="QLabel" name="empiricalLatex_1">
             <property name="text">
-             <string>фотка с эмпирической функцией</string>
+             <string>формула эмпирической функции</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -907,6 +909,8 @@ hr { height: 1px; border-width: 0; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Arial','sans-serif'; font-size:14px; font-weight:700; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
@@ -1093,19 +1097,9 @@ hr { height: 1px; border-width: 0; }
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_10">
             <item>
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>Для интервального ряда:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="empiricalIntervalLatex_2">
               <property name="text">
-               <string>фотка с эмпирической функцией для интервального ряда</string>
+               <string>формула эмпирической функции для интервального ряда</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -1490,19 +1484,9 @@ hr { height: 1px; border-width: 0; }
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QLabel" name="label_8">
-              <property name="text">
-               <string>Для группированного ряда:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="empiricalGroupLatex_2">
               <property name="text">
-               <string>фотка с эмпирической функцией для группированного ряда</string>
+               <string>формула эмпирической функции для группированного ряда</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -2034,19 +2018,9 @@ hr { height: 1px; border-width: 0; }
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_12">
             <item>
-             <widget class="QLabel" name="label_14">
-              <property name="text">
-               <string>Для интервального ряда:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="empiricalIntervalLatex_3">
               <property name="text">
-               <string>фотка с эмпирической функцией для интервального ряда</string>
+               <string>формула эмпирической функции для интервального ряда</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -2167,19 +2141,9 @@ hr { height: 1px; border-width: 0; }
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_11">
             <item>
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>Для группированного ряда:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="empiricalGroupLatex_3">
               <property name="text">
-               <string>фотка с эмпирической функцией для группированного ряда</string>
+               <string>формула эмпирической функции для группированного ряда</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
