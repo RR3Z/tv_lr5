@@ -132,7 +132,7 @@ class MainWindow(QMainWindow):
             file = open(fileName, 'r')
             
             #Чтение массива целых чисел из файла
-            self.currentArray = np.loadtxt(file, dtype=int)
+            self.currentArray = np.loadtxt(file, dtype=float)
            
             #Закрытие файла
             file.close()
@@ -577,8 +577,8 @@ class MainWindow(QMainWindow):
         }
         
         for i in range(len(self.groupRow['numbers'])):
-            relativeFrequencyPolygon['x'].append(self.groupRow['numbers'][i])
-            relativeFrequencyPolygon['y'].append(self.groupRow['numerators'][i] / self.groupRow['denominator'])
+            relativeFrequencyPolygon['x'].append(roundValue(self.groupRow['numbers'][i]))
+            relativeFrequencyPolygon['y'].append(roundValue(self.groupRow['numerators'][i] / self.groupRow['denominator']))
             
             
         graph.drawPolygonGraph(relativeFrequencyPolygon['x'], relativeFrequencyPolygon['y'], xLabel="Число", yLabel="Относительная частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
@@ -598,14 +598,14 @@ class MainWindow(QMainWindow):
         latexStr += r" \end{cases}$"
         
        
-        pixmap = mathTex_to_QPixmap_system(latexStr, 25)             
+        pixmap = mathTex_to_QPixmap_system(latexStr, 50)             
 
         #Без этого после сворачивания окна qPixMap поломает пропорции окна, а так просто картинку обрежет
-        #widget.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
+        widget.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
         
         #Ставим qPixMap'у размер его label'а
-        #widget.setPixmap(pixmap.scaled(widget.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
-        widget.setPixmap(pixmap) 
+        widget.setPixmap(pixmap.scaled(widget.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+        #widget.setPixmap(pixmap) 
         
     @Slot()
     def fillTableWithArray(self,tableWidget : QTableWidget, array, row):
