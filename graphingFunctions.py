@@ -1,9 +1,18 @@
 from mpl_toolkits.axisartist.axislines import SubplotZero
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
-def roundValue(value):
-        return round(value, 2)
+def roundValue(num, digits=2):
+    if num == 0: return 0
+    
+    absNum = abs(num - int(num))
+    if absNum == 0: return num
+    
+    scale = int(-math.floor(math.log10(absNum))) + digits - 1
+    if scale < digits: scale = digits
+    return round(num, scale)
+
 
 def removeBordersAndAddArrows(ax):    
     ax.spines['left'].set_position('zero')
