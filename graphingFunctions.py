@@ -80,7 +80,7 @@ def drawPolygonGraph(x, y, xLabel="", yLabel="", color="black", width=2, dashCol
         
             #Находим смещение для всех X
             xFirst = min(allX)
-            xDeltaForScaling = xFirst - xMinDiff        
+            xDeltaForScaling = xFirst - 2*xMinDiff        
             
             xUseScaling = xDeltaForScaling > 0.5 * xMinDiff
             
@@ -174,7 +174,7 @@ def drawEmpiricalGraph(empiricalFunction, xLabel="", yLabel="", color="black", w
     
         #Находим смещение для всех X
         xFirst = min(allX)
-        xDeltaForScaling = xFirst - xMinDiff        
+        xDeltaForScaling = xFirst - 2*xMinDiff        
         
         useScaling = xDeltaForScaling > 0.5 * xMinDiff
         
@@ -270,7 +270,7 @@ def drawHistogramGraph(histogramFunction, xLabel="", yLabel="", color="black", w
     
         #Находим смещение для всех X
         xFirst = min(allX)
-        xDeltaForScaling = xFirst - xMinDiff        
+        xDeltaForScaling = xFirst - 2*xMinDiff        
         
         xUseScaling = xDeltaForScaling > 0.5 * xMinDiff
         
