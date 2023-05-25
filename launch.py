@@ -598,17 +598,15 @@ class MainWindow(QMainWindow):
         latexStr += r" \end{cases}$"
         
        
-        pixmap = mathTex_to_QPixmap_system(latexStr, 15)             
+        pixmap = mathTex_to_QPixmap_system(latexStr, 25)             
 
         #Без этого после сворачивания окна qPixMap поломает пропорции окна, а так просто картинку обрежет
-        # widget.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
+        #widget.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
         
         #Ставим qPixMap'у размер его label'а
-        # widget.setPixmap(pixmap.scaled(widget.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
+        #widget.setPixmap(pixmap.scaled(widget.size(), Qt.AspectRatioMode.KeepAspectRatio, Qt.TransformationMode.SmoothTransformation))
         widget.setPixmap(pixmap) 
         
-<<<<<<< Updated upstream
-=======
     @Slot()
     def fillTableWithArray(self,tableWidget : QTableWidget, array, row):
         
@@ -630,7 +628,6 @@ class MainWindow(QMainWindow):
         tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         tableWidget.verticalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         
->>>>>>> Stashed changes
         
 if __name__ == "__main__":
     app = QApplication()
