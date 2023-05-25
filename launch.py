@@ -343,6 +343,10 @@ class MainWindow(QMainWindow):
         x = relativeFrequencyRow['numbers']
         y = relativeFrequencyRow['numerators']/relativeFrequencyRow['denominator']
         
+        #Округление
+        x = [roundValue(i) for i in x]
+        y = [roundValue(i) for i in y]
+        
         #Построение графика
         graph.drawPolygonGraph(x, y, xLabel="Число", yLabel="Относительная частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
         

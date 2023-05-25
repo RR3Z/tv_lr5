@@ -95,7 +95,7 @@ def drawPolygonGraph(x, y, xLabel="", yLabel="", color="black", width=2, dashCol
             
             #Находим смещение для всех Y
             yFirst = min(allY)
-            yDeltaForScaling = yFirst - 2*yMinDiff 
+            yDeltaForScaling = yFirst - 4*yMinDiff 
             
             yUseScaling = yDeltaForScaling > 0.5 * yMinDiff
 
@@ -285,7 +285,7 @@ def drawHistogramGraph(histogramFunction, xLabel="", yLabel="", color="black", w
         
         #Находим смещение для всех Y
         yFirst = min(allY)
-        yDeltaForScaling = yFirst - 2*yMinDiff 
+        yDeltaForScaling = yFirst - 4*yMinDiff 
         
         yUseScaling = yDeltaForScaling > 0.5 * yMinDiff 
         
