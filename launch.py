@@ -464,7 +464,8 @@ class MainWindow(QMainWindow):
         for i in range(len(self.intervalRow['start'])):
             frequencyHistogram['start'].append(roundValue(self.intervalRow['start'][i]))
             frequencyHistogram['end'].append(roundValue(self.intervalRow['end'][i]))
-            frequencyHistogram['frequency'].append(roundValue(self.intervalRow['frequency'][i]))
+            intervalLen = self.intervalRow['end'][i]-self.intervalRow['start'][i]
+            frequencyHistogram['frequency'].append(roundValue(self.intervalRow['frequency'][i]/intervalLen))
         
         
         graph.drawHistogramGraph(frequencyHistogram, xLabel="x", yLabel="Относительная частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
@@ -484,7 +485,11 @@ class MainWindow(QMainWindow):
         for i in range(len(self.intervalRow['start'])):
             relativeIntervalRow['start'].append(roundValue(self.intervalRow['start'][i]))
             relativeIntervalRow['end'].append(roundValue(self.intervalRow['end'][i]))
-            relativeIntervalRow['relativeFrequency'].append(roundValue(self.intervalRow['frequency'][i] / sum(self.intervalRow['frequency'])))
+            
+            intervalLen = self.intervalRow['end'][i] - self.intervalRow['start'][i]
+            frequencySum = sum(self.intervalRow['frequency'])
+            relativeFreaquency = self.intervalRow['frequency'][i] / frequencySum
+            relativeIntervalRow['relativeFrequency'].append(roundValue(relativeFreaquency / intervalLen))
         
         graph.drawHistogramGraph(relativeIntervalRow, xLabel="x", yLabel="Относительная частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
         
