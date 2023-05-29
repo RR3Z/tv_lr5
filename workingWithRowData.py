@@ -111,7 +111,7 @@ def min_sum(arr):
     return arr
 
 #Разбить на заданное количество интервалов
-def split(arr, maxIntervals, minFrequency = 5):
+def split(arr, maxIntervals):
     arr = np.sort(arr)
     
     diff = (arr[-1] - arr[0]) / maxIntervals
@@ -129,11 +129,11 @@ def split(arr, maxIntervals, minFrequency = 5):
         
     for i in range(len(arr)):
         for j in range(len(intervals['start'])):
-            if arr[i] >= intervals['start'][j] and arr[i] < intervals['end'][j]:
+            if (arr[i] > intervals['start'][j] and arr[i] <= intervals['end'][j]) or (j == 0 and arr[i] == intervals['start'][j]):
                 intervals['frequency'][j] += 1
                 break
     print(intervals)
-    return intervals    
+    return intervals   
         
     
     # intervals = split_array_into_intervals(arr, minFrequency)
