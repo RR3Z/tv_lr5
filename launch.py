@@ -468,7 +468,7 @@ class MainWindow(QMainWindow):
         for i in range(len(self.intervalRow['start'])):
             frequencyHistogram['start'].append(roundValue(self.intervalRow['start'][i]))
             frequencyHistogram['end'].append(roundValue(self.intervalRow['end'][i]))
-            intervalLen = self.intervalRow['end'][i]-self.intervalRow['start'][i]
+            intervalLen = roundValue(self.intervalRow['end'][i]-self.intervalRow['start'][i])
             frequencyHistogram['frequency'].append(roundValue(self.intervalRow['frequency'][i]/intervalLen))
         
         
