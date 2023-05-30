@@ -194,7 +194,7 @@ class MainWindow(QMainWindow):
                 # 'end' : [],
                 # 'frequency' : []
                 # }
-                self.intervalRow = split(self.currentArray, self.intervalCount, self.minFrequency)
+                self.intervalRow = split(self.currentArray, self.intervalCount)
             except ValueError as e:
                 print(e)
                 return
