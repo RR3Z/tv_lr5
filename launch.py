@@ -492,7 +492,7 @@ class MainWindow(QMainWindow):
             
             intervalLen = self.intervalRow['end'][i] - self.intervalRow['start'][i]
             frequencySum = sum(self.intervalRow['frequency'])
-            relativeFreaquency = self.intervalRow['frequency'][i] / frequencySum
+            relativeFreaquency = roundValue(self.intervalRow['frequency'][i] / frequencySum)
             relativeIntervalRow['relativeFrequency'].append(roundValue(relativeFreaquency / intervalLen))
         
         graph.drawHistogramGraph(relativeIntervalRow, xLabel="x", yLabel="Относительная частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
@@ -568,8 +568,8 @@ class MainWindow(QMainWindow):
         }
         
         for i in range(len(self.groupRow['numbers'])):
-            frequencyPolygon['x'].append(self.groupRow['numbers'][i])
-            frequencyPolygon['y'].append(self.groupRow['numerators'][i])
+            frequencyPolygon['x'].append(roundValue(self.groupRow['numbers'][i]))
+            frequencyPolygon['y'].append(roundValue(self.groupRow['numerators'][i]))
         
         graph.drawPolygonGraph(frequencyPolygon['x'], frequencyPolygon['y'], xLabel="Число", yLabel="Частота", color="black", width=1.5, dashColor="black", dashAlpha=0.5, dashWidth=0.7)
 
